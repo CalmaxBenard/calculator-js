@@ -26,16 +26,18 @@ function writeToLog(operation, prevResult, operationNum, newResult) {
 }
 
 function calculateResult(calculationType) {
+  const enteredNumber = getUserNumberInput();
+
   if (
     calculationType !== "ADD" &&
     calculationType !== "SUBTRACT" &&
     calculationType !== "MULTIPLY" &&
     calculationType !== "DIVIDE"
   ) {
+    alert("That is not allowed!");
     return;
   }
 
-  const enteredNumber = getUserNumberInput();
   initialResult = currentResult;
   let mathOperator;
   if (calculationType === "ADD") {
@@ -48,8 +50,13 @@ function calculateResult(calculationType) {
     currentResult *= enteredNumber;
     mathOperator = "x";
   } else if (calculationType === "DIVIDE") {
-    currentResult /= enteredNumber;
-    mathOperator = "/";
+    if (!enteredNumber) {
+      alert("That is not allowed!");
+      return;
+    } else {
+      currentResult /= enteredNumber;
+      mathOperator = "/";
+    }
   }
 
   createAndWriteLog(mathOperator, initialResult, enteredNumber);
